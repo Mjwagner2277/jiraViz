@@ -1,0 +1,172 @@
+name: Security Scan and Release Artifacts
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
+  actions: read
+  security-events: write
+
+jobs:
+  security:
+    name: Build and scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Test
+        run: go test ./...
+
+      - name: Build CLI
+        env:
+          VERSION: ${{ github.event.release.tag_name || github.ref_name }}
+        run: |
+          mkdir -p dist
+          go build -trimpath \
+            -ldflags "-s -w -X main.version=${VERSION} -X main.commit=${GITHUB_SHA} -X main.buildDate=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            -o dist/jiraviz .
+
+      - name: Prepare security artifact directory
+        run: mkdir -p dist/security
+
+      - name: Trivy repository scan table
+        uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          skip-dirs: dist
+          format: table
+          output: dist/security/trivy-repository.txt
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+      - name: Trivy repository scan JSON
+        uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          skip-dirs: dist
+          format: json
+          output: dist/security/trivy-repository.json
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+      - name: Trivy repository scan SARIF
+        uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          skip-dirs: dist
+          format: sarif
+          output: dist/security/trivy-repository.sarif
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+      - name: Upload SARIF to code scanning
+        if: always() && hashFiles('dist/security/trivy-repository.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: dist/security/trivy-repository.sarif
+
+      - name: Trivy repository CycloneDX SBOM
+        uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln
+          skip-dirs: dist
+          format: cyclonedx
+          output: dist/security/jiraviz-repository.cdx.json
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+      - name: Trivy CLI binary scan table
+        uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: dist/jiraviz
+          scanners: vuln
+          format: table
+          output: dist/security/trivy-cli-binary.txt
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+      - name: Trivy CLI binary scan JSON
+        uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: dist/jiraviz
+          scanners: vuln
+          format: json
+          output: dist/security/trivy-cli-binary.json
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+      - name: Write scan manifest
+        env:
+          VERSION: ${{ github.event.release.tag_name || github.ref_name }}
+        run: |
+          {
+            echo "application=jiraviz"
+            echo "version=$VERSION"
+            echo "commit=${GITHUB_SHA}"
+            echo "build_date=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "scanner=trivy"
+            echo "fail_on=CRITICAL,HIGH"
+            echo "artifacts:"
+            echo "  - trivy-repository.txt"
+            echo "  - trivy-repository.json"
+            echo "  - trivy-repository.sarif"
+            echo "  - jiraviz-repository.cdx.json"
+            echo "  - trivy-cli-binary.txt"
+            echo "  - trivy-cli-binary.json"
+          } > dist/security/scan-manifest.txt
+
+      - name: Generate checksums
+        run: |
+          cd dist
+          sha256sum jiraviz security/* > SHA256SUMS
+
+      - name: Enforce Trivy severity gate
+        uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          skip-dirs: dist
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+
+      - name: Upload workflow artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jiraviz-security-artifacts
+          path: |
+            dist/jiraviz
+            dist/SHA256SUMS
+            dist/security/*
+          if-no-files-found: error
+
+      - name: Attach artifacts to GitHub Release
+        if: always() && github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/jiraviz
+            dist/SHA256SUMS
+            dist/security/*

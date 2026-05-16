@@ -1,0 +1,21 @@
+Key,Summary,Issue Type,Status,Assignee,Fix Version/s,Epic Link,Parent,Start Date,Due Date,Story Points,Planned,Depends On,Blocks
+PAY-101,Payments foundation,Epic,In Progress,Mina,2026.6,,PAY-101,2026-05-20,2026-07-14,13,true,,
+PAY-111,Ledger schema,Story,Done,Ari,2026.6,PAY-101,,2026-05-20,2026-06-05,5,true,,
+PAY-112,Payment retry worker,Story,In Progress,Sam,2026.6,PAY-101,,2026-06-06,2026-06-28,8,true,PAY-111,PAY-122
+PAY-113,Settlement audit view,Story,To Do,Lee,2026.7,PAY-101,,2026-06-28,2026-07-14,5,true,PAY-112,
+RPT-201,Reporting modernization,Epic,To Do,Noor,2026.7,,RPT-201,2026-06-20,2026-08-22,21,true,PAY-101,
+RPT-211,Metric catalog,Story,To Do,Noor,2026.7,RPT-201,,2026-06-20,2026-07-08,8,true,PAY-113,
+RPT-212,Dashboard export,Story,To Do,Ivy,2026.8,RPT-201,,2026-07-09,2026-08-02,8,true,RPT-211,
+RPT-213,Report subscriptions,Story,To Do,Ivy,2026.8,RPT-201,,2026-08-03,2026-08-22,5,true,RPT-212,
+SEC-301,Security hardening,Epic,In Progress,Chen,2026.6,,SEC-301,2026-05-18,2026-07-03,18,true,,
+SEC-311,Token rotation,Story,Done,Chen,2026.6,SEC-301,,2026-05-18,2026-05-31,5,true,,
+SEC-312,Permission review,Story,In Progress,Bo,2026.6,SEC-301,,2026-06-01,2026-06-18,8,true,SEC-311,
+SEC-313,Admin alerting,Story,To Do,Bo,2026.7,SEC-301,,2026-06-19,2026-07-03,5,true,SEC-312,RPT-211
+MOB-401,Mobile launch readiness,Epic,To Do,June,2026.9,,MOB-401,2026-08-15,2026-10-20,20,true,RPT-201,
+MOB-411,Offline receipts,Story,To Do,June,2026.9,MOB-401,,2026-08-15,2026-09-05,8,true,RPT-213,
+MOB-412,Push notifications,Story,To Do,June,2026.9,MOB-401,,2026-09-06,2026-09-24,5,true,MOB-411,
+MOB-413,Release candidate,Story,To Do,June,2026.10,MOB-401,,2026-09-25,2026-10-20,7,true,MOB-412,
+OPS-501,Operational readiness,Epic,To Do,Tess,2026.10,,OPS-501,2026-09-10,2026-11-10,13,true,SEC-301,
+OPS-511,Runbooks,Story,To Do,Tess,2026.10,OPS-501,,2026-09-10,2026-09-30,5,true,SEC-313,
+OPS-512,Launch dashboard,Story,To Do,Tess,2026.10,OPS-501,,2026-10-01,2026-10-25,5,true,OPS-511,
+OPS-513,Go-live checklist,Story,To Do,Tess,2026.11,OPS-501,,2026-10-26,2026-11-10,3,true,OPS-512,

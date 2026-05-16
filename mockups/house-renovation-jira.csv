@@ -1,0 +1,21 @@
+Key,Summary,Issue Type,Status,Assignee,Fix Version/s,Epic Link,Parent,Start Date,Due Date,Story Points,Planned,Depends On,Blocks
+REN-100,Planning and permits,Epic,In Progress,Owner,R1 Planning & Permits,,REN-100,2026-05-06,2026-07-15,13,true,,REN-200
+REN-101,Confirm renovation scope,Story,Done,Owner,R1 Planning & Permits,REN-100,,2026-05-06,2026-05-16,3,true,,
+REN-102,Finalize contractor contract,Story,Done,Owner,R1 Planning & Permits,REN-100,,2026-05-17,2026-06-01,5,true,REN-101,
+REN-103,Submit permit package,Story,Done,Contractor,R1 Planning & Permits,REN-100,,2026-06-02,2026-06-20,3,true,REN-102,
+REN-104,Receive building permit,Story,To Do,City Inspector,R1 Planning & Permits,REN-100,,2026-06-21,2026-07-15,2,true,REN-103,REN-200
+REN-200,Demo and rough-in,Epic,In Progress,Contractor,R2 Demo & Rough-In,,REN-200,2026-06-03,2026-08-16,21,true,REN-100,REN-300
+REN-201,Protect floors and isolate work area,Story,Done,Contractor,R2 Demo & Rough-In,REN-200,,2026-06-03,2026-06-10,3,true,REN-104,
+REN-202,Demolish kitchen and bath finishes,Story,Done,Contractor,R2 Demo & Rough-In,REN-200,,2026-06-11,2026-06-28,5,true,REN-201,
+REN-203,Electrical rough-in,Story,In Progress,Electrician,R2 Demo & Rough-In,REN-200,,2026-06-29,2026-07-25,8,true,REN-202,
+REN-204,Plumbing rough-in,Story,To Do,Plumber,R2 Demo & Rough-In,REN-200,,2026-07-12,2026-08-16,5,true,"REN-202; REN-104",REN-300
+REN-300,Finishes and fixtures,Epic,To Do,Contractor,R3 Finishes,,REN-300,2026-07-10,2026-09-28,21,true,REN-200,REN-400
+REN-301,Drywall repair and paint,Story,Done,Contractor,R3 Finishes,REN-300,,2026-07-10,2026-08-06,5,true,REN-203,
+REN-302,Install cabinets and counters,Story,To Do,Carpenter,R3 Finishes,REN-300,,2026-08-07,2026-08-31,8,true,REN-301,
+REN-303,Install tile and flooring,Story,To Do,Tile Crew,R3 Finishes,REN-300,,2026-08-18,2026-09-12,5,true,REN-301,
+REN-304,Install fixtures and appliances,Story,To Do,Contractor,R3 Finishes,REN-300,,2026-09-13,2026-09-28,3,true,"REN-302; REN-303; REN-204",REN-400
+REN-400,Inspection and move-in,Epic,To Do,Owner,R4 Inspection & Move-In,,REN-400,2026-08-12,2026-10-18,13,true,REN-300,
+REN-401,Schedule final inspections,Story,Done,Owner,R4 Inspection & Move-In,REN-400,,2026-08-12,2026-08-23,3,true,REN-304,
+REN-402,Complete punch list,Story,To Do,Contractor,R4 Inspection & Move-In,REN-400,,2026-09-20,2026-10-05,5,true,"REN-401; REN-304",
+REN-403,Final clean and turnover,Story,To Do,Cleaning Crew,R4 Inspection & Move-In,REN-400,,2026-10-06,2026-10-12,2,true,REN-402,
+REN-404,Move furniture back in,Story,To Do,Owner,R4 Inspection & Move-In,REN-400,,2026-10-13,2026-10-18,3,true,REN-403,
