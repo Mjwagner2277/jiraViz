@@ -781,7 +781,6 @@ type SVGReport struct {
 	RankingLabel string
 	Width        int
 	Height       int
-	GanttHeight  int
 	ChartLeft    int
 	ChartRight   int
 	ChartWidth   int
@@ -789,7 +788,6 @@ type SVGReport struct {
 	TodayX       int
 	Releases     []SVGRelease
 	TopEpics     []SVGEpic
-	GanttEpics   []SVGEpic
 }
 
 type SVGTick struct {
@@ -885,23 +883,13 @@ func buildSVGReport(report Report, mode string, now time.Time) SVGReport {
 		topEpics = append(topEpics, svgEpic(epic, i+1, 616+i*52, colors[i%len(colors)], windowStart, windowEnd, 650, 390, rankingLabel))
 	}
 
-	gantt := make([]SVGEpic, 0, len(report.Epics))
-	for i, epic := range report.Epics {
-		if i >= 9 {
-			break
-		}
-		gantt = append(gantt, svgEpic(epic, i+1, 865+i*48, colors[i%len(colors)], windowStart, windowEnd, left, width, rankingLabel))
-	}
-
-	height := 940 + maxInt(0, len(gantt)-1)*48
 	return SVGReport{
 		ProjectName:  report.ProjectName,
 		GeneratedAt:  report.GeneratedAt,
 		WindowLabel:  fmt.Sprintf("%s to %s", windowStart.Format("Jan 2, 2006"), windowEnd.Format("Jan 2, 2006")),
 		RankingLabel: rankingLabel,
 		Width:        1200,
-		Height:       height,
-		GanttHeight:  maxInt(150, height-812-28),
+		Height:       820,
 		ChartLeft:    left,
 		ChartRight:   right,
 		ChartWidth:   width,
@@ -909,7 +897,6 @@ func buildSVGReport(report Report, mode string, now time.Time) SVGReport {
 		TodayX:       dateX(windowStart, windowStart, windowEnd, left, width),
 		Releases:     releases,
 		TopEpics:     topEpics,
-		GanttEpics:   gantt,
 	}
 }
 
@@ -1033,7 +1020,7 @@ func writeSampleCSV(path string) error {
 
 const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="{{.Width}}" height="{{.Height}}" viewBox="0 0 {{.Width}} {{.Height}}" role="img" aria-labelledby="title desc">
   <title id="title">{{.ProjectName}} Program Portfolio Report</title>
-  <desc id="desc">Jira CSV visualization with release timeline, largest epics over the next six months, and all epic gantt rows.</desc>
+  <desc id="desc">Jira CSV visualization with release timeline and important epics over the next six months.</desc>
   <defs>
     <style>
       .page { fill: #f6f7f9; }
@@ -1081,7 +1068,7 @@ const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="{{.Width}}" 
   {{end}}
 
   <rect class="panel" x="40" y="532" width="1120" height="250" rx="8"/>
-  <text class="ink section" x="64" y="568">Largest Epics Next 6 Months</text>
+  <text class="ink section" x="64" y="568">Important Epics</text>
   <text class="muted small" x="64" y="590">{{.RankingLabel}}. Only epics that intersect the six-month window are eligible.</text>
   {{range .TopEpics}}
     <rect class="soft" x="60" y="{{.Y}}" width="1080" height="54" rx="7"/>
@@ -1096,28 +1083,6 @@ const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="{{.Width}}" 
     <circle class="dot" cx="{{.X}}" cy="{{.Y}}" r="5" transform="translate(0 8)" stroke="{{.Color}}"/>
     <circle class="dot" cx="{{.X}}" cy="{{.Y}}" r="5" transform="translate({{.Width}} 8)" stroke="{{.Color}}"/>
     <text class="ink label" x="{{.X}}" dx="{{.Width}}" y="{{.Y}}" dy="13">{{.Percent}}%</text>
-  {{end}}
-
-  <rect class="panel" x="40" y="812" width="1120" height="{{.GanttHeight}}" rx="8"/>
-  <text class="ink section" x="64" y="848">All Epics Spanning Next 6 Months</text>
-  <text class="muted small" x="64" y="870">Started epics show percent complete. Not-started epics use a dashed outline.</text>
-  <line class="axis" x1="{{.ChartLeft}}" y1="892" x2="{{.ChartRight}}" y2="892"/>
-  {{range .MonthTicks}}
-    <line class="grid" x1="{{.X}}" y1="892" x2="{{.X}}" y2="10000"/>
-    <text class="muted small" x="{{.X}}" y="882" text-anchor="middle">{{.Label}}</text>
-  {{end}}
-  {{range .GanttEpics}}
-    <text class="ink label" x="64" y="{{.Y}}" dy="13">{{.Key}}</text>
-    <text class="muted small" x="126" y="{{.Y}}" dy="13">{{.Name}}</text>
-    <rect class="remainder" x="{{.X}}" y="{{.Y}}" width="{{.Width}}" height="18" rx="5"/>
-    {{if .NotStarted}}
-      <rect class="notStarted" x="{{.X}}" y="{{.Y}}" width="{{.Width}}" height="18" rx="5" stroke="{{.Color}}"/>
-    {{else}}
-      <rect class="completion" x="{{.X}}" y="{{.Y}}" width="{{.FillWidth}}" height="18" rx="5" fill="{{.Color}}"/>
-    {{end}}
-    {{if .ContinuesFrom}}<text class="muted small" x="{{.X}}" dx="-6" y="{{.Y}}" dy="14" text-anchor="end">continues</text>{{end}}
-    {{if .ContinuesPast}}<text class="muted small" x="{{.X}}" dx="{{.Width}}" y="{{.Y}}" dy="14">continues</text>{{end}}
-    <text class="ink label" x="{{.X}}" dx="{{.Width}}" y="{{.Y}}" dy="14">{{.Percent}}%</text>
   {{end}}
 </svg>
 `
