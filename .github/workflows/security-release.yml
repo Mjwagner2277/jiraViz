@@ -1,5 +1,8 @@
 name: Security Scan and Release Artifacts
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches:
@@ -29,7 +32,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-          cache: true
+          cache: false
 
       - name: Test
         run: go test ./...
@@ -81,7 +84,8 @@ jobs:
 
       - name: Upload SARIF to code scanning
         if: always() && hashFiles('dist/security/trivy-repository.sarif') != ''
-        uses: github/codeql-action/upload-sarif@v3
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: dist/security/trivy-repository.sarif
 
