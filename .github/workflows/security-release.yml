@@ -145,6 +145,12 @@ jobs:
           cd dist
           sha256sum jiraviz security/* > SHA256SUMS
 
+      - name: Package security artifacts
+        env:
+          VERSION: ${{ github.event.release.tag_name || github.ref_name }}
+        run: |
+          tar -czf "dist/jiraviz-security-artifacts-${VERSION}.tar.gz" -C dist security SHA256SUMS
+
       - name: Enforce Trivy severity gate
         uses: aquasecurity/trivy-action@v0.36.0
         with:
@@ -162,8 +168,7 @@ jobs:
           name: jiraviz-security-artifacts
           path: |
             dist/jiraviz
-            dist/SHA256SUMS
-            dist/security/*
+            dist/jiraviz-security-artifacts-*.tar.gz
           if-no-files-found: error
 
       - name: Attach artifacts to GitHub Release
@@ -172,5 +177,4 @@ jobs:
         with:
           files: |
             dist/jiraviz
-            dist/SHA256SUMS
-            dist/security/*
+            dist/jiraviz-security-artifacts-*.tar.gz

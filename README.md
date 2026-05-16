@@ -24,14 +24,9 @@ Artifacts are written under `dist/`:
 
 ```text
 dist/jiraviz
-dist/SHA256SUMS
-dist/security/trivy-repository.txt
-dist/security/trivy-repository.json
-dist/security/trivy-repository.sarif
-dist/security/jiraviz-repository.cdx.json
-dist/security/trivy-cli-binary.txt
-dist/security/trivy-cli-binary.json
-dist/security/scan-manifest.txt
+dist/jiraviz-security-artifacts-<version>.tar.gz
 ```
+
+The security tarball contains `SHA256SUMS` plus the Trivy table, JSON, SARIF, CycloneDX SBOM, binary scan reports, and scan manifest.
 
 The workflow fails on `CRITICAL,HIGH` Trivy findings after writing the security artifacts.
