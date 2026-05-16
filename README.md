@@ -2,6 +2,10 @@
 
 JiraViz renders an SVG program portfolio report from a Jira CSV export.
 
+New to command-line tools? Start here:
+
+[JiraViz CLI Usage Guide](docs/CLI_USAGE.md)
+
 ## Local Build
 
 ```bash
