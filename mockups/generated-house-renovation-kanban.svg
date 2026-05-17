@@ -64,11 +64,32 @@
     <text class="ink label" x="680" dx="16" y="218" dy="14">25%</text>
 
     <text class="ink label" x="64" y="280">PINE R2 MEP Buildout</text>
-    <text class="muted small" x="64" y="280" dy="20">Aug 1 - Nov 10 · 0/4 done</text>
+    <text class="muted small" x="64" y="280" dy="20">Aug 1 - Nov 10 · 0/5 done</text>
     <rect class="remainder" x="614" y="280" width="478" height="18" rx="9"/>
     <rect class="releaseBar" x="614" y="280" width="2" height="18" rx="9" fill="#188A7D"/>
     <circle class="dot" cx="1092" cy="280" r="7" dy="9" transform="translate(0 9)" stroke="#188A7D"/>
     <text class="ink label" x="1092" dx="16" y="280" dy="14">0%</text>
+
+    <text class="ink label" x="64" y="342">PINE R3 Interiors</text>
+    <text class="muted small" x="64" y="342" dy="20">Sep 15 - Dec 20 · 0/7 done</text>
+    <rect class="remainder" x="827" y="342" width="293" height="18" rx="9"/>
+    <rect class="releaseBar" x="827" y="342" width="2" height="18" rx="9" fill="#8A5FBF"/>
+    <circle class="dot" cx="1120" cy="342" r="7" dy="9" transform="translate(0 9)" stroke="#8A5FBF"/>
+    <text class="ink label" x="1120" dx="16" y="342" dy="14">0%</text>
+
+    <text class="ink label" x="64" y="404">PINE R4 Site Amenities</text>
+    <text class="muted small" x="64" y="404" dy="20">Sep 1 - Nov 30 · 0/6 done</text>
+    <rect class="remainder" x="761" y="404" width="359" height="18" rx="9"/>
+    <rect class="releaseBar" x="761" y="404" width="2" height="18" rx="9" fill="#C76B2C"/>
+    <circle class="dot" cx="1120" cy="404" r="7" dy="9" transform="translate(0 9)" stroke="#C76B2C"/>
+    <text class="ink label" x="1120" dx="16" y="404" dy="14">0%</text>
+
+    <text class="ink label" x="64" y="466">PINE R5 Opening</text>
+    <text class="muted small" x="64" y="466" dy="20">Nov 15 - Jan 20 · 0/4 done</text>
+    <rect class="remainder" x="1115" y="466" width="28" height="18" rx="9"/>
+    <rect class="releaseBar" x="1115" y="466" width="2" height="18" rx="9" fill="#58733B"/>
+    <circle class="dot" cx="1143" cy="466" r="7" dy="9" transform="translate(0 9)" stroke="#58733B"/>
+    <text class="ink label" x="1143" dx="16" y="466" dy="14">0%</text>
 
 
   <rect class="panel" x="40" y="532" width="1120" height="250" rx="8"/>
@@ -76,25 +97,36 @@
   <text class="muted small" x="64" y="590">Ranked by planned issue count. Only epics that intersect the six-month window are eligible.</text>
 
     <rect class="soft" x="60" y="616" width="1080" height="54" rx="7"/>
-    <text class="ink epicTitle" x="82" y="616" dy="22">#1 PINE-100 · Pine Ridge community center shell</text>
-    <text class="muted epicMeta" x="82" y="616" dy="40">4 planned issues · May 1 - Aug 15</text>
-    <rect class="remainder" x="650" y="616" width="183" height="16" rx="8"/>
+    <text class="ink epicTitle" x="82" y="616" dy="22">#1 PINE-200 · Pine Ridge MEP buildout</text>
+    <text class="muted epicMeta" x="82" y="616" dy="40">5 planned issues · Aug 1 - Nov 10</text>
+    <rect class="remainder" x="805" y="616" width="203" height="16" rx="8"/>
 
-      <rect class="completion" x="650" y="616" width="46" height="16" rx="8" fill="#2F6FED"/>
+      <rect class="notStarted" x="805" y="616" width="203" height="16" rx="8" stroke="#2F6FED"/>
 
-    <circle class="dot" cx="650" cy="616" r="5" transform="translate(0 8)" stroke="#2F6FED"/>
-    <circle class="dot" cx="650" cy="616" r="5" transform="translate(183 8)" stroke="#2F6FED"/>
-    <text class="ink label" x="855" y="616" dy="13">25%</text>
+    <circle class="dot" cx="805" cy="616" r="5" transform="translate(0 8)" stroke="#2F6FED"/>
+    <circle class="dot" cx="805" cy="616" r="5" transform="translate(203 8)" stroke="#2F6FED"/>
+    <text class="ink label" x="1030" y="616" dy="13">0%</text>
 
     <rect class="soft" x="60" y="668" width="1080" height="54" rx="7"/>
-    <text class="ink epicTitle" x="82" y="668" dy="22">#2 PINE-200 · Pine Ridge MEP buildout</text>
-    <text class="muted epicMeta" x="82" y="668" dy="40">4 planned issues · Aug 1 - Nov 10</text>
-    <rect class="remainder" x="805" y="668" width="203" height="16" rx="8"/>
+    <text class="ink epicTitle" x="82" y="668" dy="22">#2 PINE-400 · Pine Ridge site amenities</text>
+    <text class="muted epicMeta" x="82" y="668" dy="40">5 planned issues · Sep 1 - Nov 30</text>
+    <rect class="remainder" x="867" y="668" width="153" height="16" rx="8"/>
 
-      <rect class="notStarted" x="805" y="668" width="203" height="16" rx="8" stroke="#188A7D"/>
+      <rect class="notStarted" x="867" y="668" width="153" height="16" rx="8" stroke="#188A7D"/>
 
-    <circle class="dot" cx="805" cy="668" r="5" transform="translate(0 8)" stroke="#188A7D"/>
-    <circle class="dot" cx="805" cy="668" r="5" transform="translate(203 8)" stroke="#188A7D"/>
-    <text class="ink label" x="1030" y="668" dy="13">0%</text>
+    <circle class="dot" cx="867" cy="668" r="5" transform="translate(0 8)" stroke="#188A7D"/>
+    <circle class="dot" cx="867" cy="668" r="5" transform="translate(153 8)" stroke="#188A7D"/>
+    <text class="ink label" x="1042" y="668" dy="13">0%</text>
+
+    <rect class="soft" x="60" y="720" width="1080" height="54" rx="7"/>
+    <text class="ink epicTitle" x="82" y="720" dy="22">#3 PINE-100 · Pine Ridge community center shell</text>
+    <text class="muted epicMeta" x="82" y="720" dy="40">4 planned issues · May 1 - Aug 15</text>
+    <rect class="remainder" x="650" y="720" width="183" height="16" rx="8"/>
+
+      <rect class="completion" x="650" y="720" width="46" height="16" rx="8" fill="#8A5FBF"/>
+
+    <circle class="dot" cx="650" cy="720" r="5" transform="translate(0 8)" stroke="#8A5FBF"/>
+    <circle class="dot" cx="650" cy="720" r="5" transform="translate(183 8)" stroke="#8A5FBF"/>
+    <text class="ink label" x="855" y="720" dy="13">25%</text>
 
 </svg>

@@ -1,39 +1,76 @@
 Project,Key,Summary,Issue Type,Status,Assignee,Fix Version/s,Epic Link,Parent,Start Date,Due Date,Story Points,Planned,Depends On,Blocks
-OAK,OAK-100,Oak Street townhomes site prep,Epic,In Progress,Site Lead,OAK R1 Site Prep,,OAK-100,2026-05-04,2026-06-28,13,true,,OAK-200
+OAK,OAK-100,Oak Street civil and site prep,Epic,In Progress,Site Lead,OAK R1 Site Prep,,OAK-100,2026-05-04,2026-06-28,21,true,,OAK-200
 OAK,OAK-101,Survey lot boundaries,Story,Done,Surveyor,OAK R1 Site Prep,OAK-100,,2026-05-04,2026-05-10,3,true,,
 OAK,OAK-102,Clear brush and debris,Story,Done,Excavation Crew,OAK R1 Site Prep,OAK-100,,2026-05-11,2026-05-22,3,true,OAK-101,
-OAK,OAK-103,Install erosion controls,Story,In Progress,Site Lead,OAK R1 Site Prep,OAK-100,,2026-05-23,2026-06-05,3,true,OAK-102,
-OAK,OAK-104,Grade building pads,Story,To Do,Excavation Crew,OAK R1 Site Prep,OAK-100,,2026-06-06,2026-06-28,4,true,OAK-103,OAK-200
-OAK,OAK-200,Oak Street foundations,Epic,To Do,Concrete Lead,OAK R2 Foundations,,OAK-200,2026-06-18,2026-08-20,21,true,OAK-100,OAK-300
-OAK,OAK-201,Trench footings,Story,To Do,Concrete Lead,OAK R2 Foundations,OAK-200,,2026-06-18,2026-07-02,5,true,OAK-104,
+OAK,OAK-103,Install erosion controls,Story,In Progress,Site Lead,OAK R1 Site Prep,OAK-100,,2026-05-23,2026-06-05,5,true,OAK-102,
+OAK,OAK-104,Relocate temporary utilities,Task,In Progress,Utility Coordinator,OAK R1 Site Prep,OAK-100,,2026-05-29,2026-06-14,3,true,OAK-102,OAK-202
+OAK,OAK-105,Grade building pads,Story,To Do,Excavation Crew,OAK R1 Site Prep,OAK-100,,2026-06-06,2026-06-28,7,true,"OAK-103; OAK-104",OAK-200
+OAK,OAK-200,Oak Street foundations,Epic,To Do,Concrete Lead,OAK R2 Foundations,,OAK-200,2026-06-18,2026-08-20,29,true,OAK-100,OAK-300
+OAK,OAK-201,Trench footings,Story,To Do,Concrete Lead,OAK R2 Foundations,OAK-200,,2026-06-18,2026-07-02,5,true,OAK-105,
 OAK,OAK-202,Set forms and rebar,Story,To Do,Concrete Crew,OAK R2 Foundations,OAK-200,,2026-07-03,2026-07-20,8,true,OAK-201,
-OAK,OAK-203,Pour foundations,Story,To Do,Concrete Crew,OAK R2 Foundations,OAK-200,,2026-07-21,2026-08-05,5,true,OAK-202,
-OAK,OAK-204,Foundation inspection,Story,To Do,Inspector,OAK R2 Foundations,OAK-200,,2026-08-06,2026-08-20,3,true,OAK-203,OAK-300
-OAK,OAK-300,Oak Street framing,Epic,To Do,Framing Lead,OAK R3 Framing,,OAK-300,2026-08-05,2026-10-10,18,true,OAK-200,
-OAK,OAK-301,Deliver lumber package,Story,To Do,Supplier,OAK R3 Framing,OAK-300,,2026-08-05,2026-08-15,3,true,OAK-204,
+OAK,OAK-203,Coordinate anchor bolt layout,Task,To Do,Framing Lead,OAK R2 Foundations,OAK-200,,2026-07-12,2026-07-25,3,true,OAK-202,
+OAK,OAK-204,Pour foundations,Story,To Do,Concrete Crew,OAK R2 Foundations,OAK-200,,2026-07-21,2026-08-05,8,true,OAK-203,
+OAK,OAK-205,Foundation inspection,Story,To Do,Inspector,OAK R2 Foundations,OAK-200,,2026-08-06,2026-08-20,5,true,OAK-204,OAK-300
+OAK,OAK-300,Oak Street framing,Epic,To Do,Framing Lead,OAK R3 Framing,,OAK-300,2026-08-05,2026-10-10,31,true,OAK-200,OAK-400
+OAK,OAK-301,Deliver lumber package,Story,To Do,Supplier,OAK R3 Framing,OAK-300,,2026-08-05,2026-08-15,3,true,OAK-205,
 OAK,OAK-302,Frame first floor,Story,To Do,Framing Crew,OAK R3 Framing,OAK-300,,2026-08-16,2026-09-10,8,true,OAK-301,
-OAK,OAK-303,Frame second floor and roof,Story,To Do,Framing Crew,OAK R3 Framing,OAK-300,,2026-09-11,2026-10-10,7,true,OAK-302,
-MAP,MAP-100,Maple Avenue remodel design,Epic,In Progress,Project Manager,MAP R1 Design & Permits,,MAP-100,2026-05-12,2026-07-08,13,true,,MAP-200
+OAK,OAK-303,Frame second floor and roof,Story,To Do,Framing Crew,OAK R3 Framing,OAK-300,,2026-09-11,2026-10-10,13,true,OAK-302,
+OAK,OAK-304,Roof dry-in,Story,To Do,Roofing Crew,OAK R3 Framing,OAK-300,,2026-09-24,2026-10-10,5,true,OAK-303,OAK-400
+OAK,OAK-400,Oak Street exterior envelope,Epic,To Do,Exterior Lead,OAK R4 Envelope,,OAK-400,2026-09-28,2026-11-25,22,true,OAK-300,
+OAK,OAK-401,Install windows and doors,Story,To Do,Exterior Crew,OAK R4 Envelope,OAK-400,,2026-09-28,2026-10-20,8,true,OAK-304,
+OAK,OAK-402,Install weather barrier,Task,To Do,Exterior Crew,OAK R4 Envelope,OAK-400,,2026-10-12,2026-10-28,3,true,OAK-401,
+OAK,OAK-403,Install siding,Story,To Do,Exterior Crew,OAK R4 Envelope,OAK-400,,2026-10-29,2026-11-20,8,true,OAK-402,
+OAK,OAK-404,Envelope inspection,Story,To Do,Inspector,OAK R4 Envelope,OAK-400,,2026-11-21,2026-11-25,3,true,OAK-403,
+MAP,MAP-100,Maple Avenue remodel design,Epic,In Progress,Project Manager,MAP R1 Design & Permits,,MAP-100,2026-05-12,2026-07-08,18,true,,MAP-200
 MAP,MAP-101,Finalize kitchen layout,Story,Done,Designer,MAP R1 Design & Permits,MAP-100,,2026-05-12,2026-05-24,3,true,,
 MAP,MAP-102,Select finish package,Story,In Progress,Owner,MAP R1 Design & Permits,MAP-100,,2026-05-25,2026-06-08,3,true,MAP-101,
-MAP,MAP-103,Submit permit drawings,Story,To Do,Architect,MAP R1 Design & Permits,MAP-100,,2026-06-09,2026-06-24,5,true,MAP-102,
-MAP,MAP-104,Receive permit approval,Story,To Do,City,MAP R1 Design & Permits,MAP-100,,2026-06-25,2026-07-08,2,true,MAP-103,MAP-200
-MAP,MAP-200,Maple Avenue interior rough-in,Epic,To Do,Superintendent,MAP R2 Rough-In,,MAP-200,2026-07-01,2026-09-05,21,true,MAP-100,MAP-300
-MAP,MAP-201,Demolish existing kitchen,Story,To Do,Demo Crew,MAP R2 Rough-In,MAP-200,,2026-07-01,2026-07-15,5,true,MAP-104,
-MAP,MAP-202,Electrical rough-in,Story,To Do,Electrician,MAP R2 Rough-In,MAP-200,,2026-07-16,2026-08-05,8,true,MAP-201,
-MAP,MAP-203,Plumbing rough-in,Story,To Do,Plumber,MAP R2 Rough-In,MAP-200,,2026-08-06,2026-08-25,5,true,MAP-201,
-MAP,MAP-204,Rough-in inspection,Story,To Do,Inspector,MAP R2 Rough-In,MAP-200,,2026-08-26,2026-09-05,3,true,"MAP-202; MAP-203",MAP-300
-MAP,MAP-300,Maple Avenue finishes,Epic,To Do,Finish Lead,MAP R3 Finishes,,MAP-300,2026-08-28,2026-10-25,18,true,MAP-200,
-MAP,MAP-301,Install cabinets,Story,To Do,Carpenter,MAP R3 Finishes,MAP-300,,2026-08-28,2026-09-18,8,true,MAP-204,
-MAP,MAP-302,Install counters and tile,Story,To Do,Tile Crew,MAP R3 Finishes,MAP-300,,2026-09-19,2026-10-10,5,true,MAP-301,
-MAP,MAP-303,Final paint and punch list,Story,To Do,Finish Crew,MAP R3 Finishes,MAP-300,,2026-10-11,2026-10-25,5,true,MAP-302,
+MAP,MAP-103,Complete structural review,Task,In Progress,Engineer,MAP R1 Design & Permits,MAP-100,,2026-06-01,2026-06-17,5,true,MAP-101,MAP-202
+MAP,MAP-104,Submit permit drawings,Story,To Do,Architect,MAP R1 Design & Permits,MAP-100,,2026-06-09,2026-06-24,5,true,"MAP-102; MAP-103",
+MAP,MAP-105,Receive permit approval,Story,To Do,City,MAP R1 Design & Permits,MAP-100,,2026-06-25,2026-07-08,2,true,MAP-104,MAP-200
+MAP,MAP-200,Maple Avenue interior rough-in,Epic,To Do,Superintendent,MAP R2 Rough-In,,MAP-200,2026-07-01,2026-09-05,29,true,MAP-100,MAP-300
+MAP,MAP-201,Demolish existing kitchen,Story,To Do,Demo Crew,MAP R2 Rough-In,MAP-200,,2026-07-01,2026-07-15,5,true,MAP-105,
+MAP,MAP-202,Frame new pantry wall,Task,To Do,Carpenter,MAP R2 Rough-In,MAP-200,,2026-07-10,2026-07-24,5,true,MAP-201,
+MAP,MAP-203,Electrical rough-in,Story,To Do,Electrician,MAP R2 Rough-In,MAP-200,,2026-07-16,2026-08-05,8,true,"MAP-201; MAP-202",
+MAP,MAP-204,Plumbing rough-in,Story,To Do,Plumber,MAP R2 Rough-In,MAP-200,,2026-08-06,2026-08-25,8,true,MAP-201,
+MAP,MAP-205,Rough-in inspection,Story,To Do,Inspector,MAP R2 Rough-In,MAP-200,,2026-08-26,2026-09-05,3,true,"MAP-203; MAP-204",MAP-300
+MAP,MAP-300,Maple Avenue finishes,Epic,To Do,Finish Lead,MAP R3 Finishes,,MAP-300,2026-08-28,2026-10-25,31,true,MAP-200,MAP-400
+MAP,MAP-301,Install cabinets,Story,To Do,Carpenter,MAP R3 Finishes,MAP-300,,2026-08-28,2026-09-18,8,true,MAP-205,
+MAP,MAP-302,Install counters and tile,Story,To Do,Tile Crew,MAP R3 Finishes,MAP-300,,2026-09-19,2026-10-10,8,true,MAP-301,
+MAP,MAP-303,Install appliance package,Task,To Do,Appliance Vendor,MAP R3 Finishes,MAP-300,,2026-10-01,2026-10-16,5,true,MAP-302,
+MAP,MAP-304,Final paint and punch list,Story,To Do,Finish Crew,MAP R3 Finishes,MAP-300,,2026-10-11,2026-10-25,5,true,"MAP-302; MAP-303",
+MAP,MAP-400,Maple Avenue turnover,Epic,To Do,Project Manager,MAP R4 Turnover,,MAP-400,2026-10-20,2026-12-05,16,true,MAP-300,
+MAP,MAP-401,Owner walk-through,Story,To Do,Project Manager,MAP R4 Turnover,MAP-400,,2026-10-20,2026-10-30,3,true,MAP-304,
+MAP,MAP-402,Complete punch corrections,Story,To Do,Finish Crew,MAP R4 Turnover,MAP-400,,2026-10-31,2026-11-18,5,true,MAP-401,
+MAP,MAP-403,Final inspection closeout,Story,To Do,Inspector,MAP R4 Turnover,MAP-400,,2026-11-19,2026-11-30,5,true,MAP-402,
+MAP,MAP-404,Owner handoff package,Task,To Do,Project Manager,MAP R4 Turnover,MAP-400,,2026-12-01,2026-12-05,3,true,MAP-403,
 PINE,PINE-100,Pine Ridge community center shell,Epic,In Progress,Project Executive,PINE R1 Shell,,PINE-100,2026-05-01,2026-08-15,34,true,,PINE-200
 PINE,PINE-101,Complete steel procurement,Story,Done,Procurement Lead,PINE R1 Shell,PINE-100,,2026-05-01,2026-05-20,8,true,,
 PINE,PINE-102,Erect structural steel,Story,In Progress,Steel Crew,PINE R1 Shell,PINE-100,,2026-05-21,2026-06-30,13,true,PINE-101,
 PINE,PINE-103,Install roof decking,Story,To Do,Roofing Crew,PINE R1 Shell,PINE-100,,2026-07-01,2026-07-25,8,true,PINE-102,
 PINE,PINE-104,Dry-in inspection,Story,To Do,Inspector,PINE R1 Shell,PINE-100,,2026-07-26,2026-08-15,5,true,PINE-103,PINE-200
-PINE,PINE-200,Pine Ridge MEP buildout,Epic,To Do,MEP Manager,PINE R2 MEP Buildout,,PINE-200,2026-08-01,2026-11-10,34,true,PINE-100,
+PINE,PINE-200,Pine Ridge MEP buildout,Epic,To Do,MEP Manager,PINE R2 MEP Buildout,,PINE-200,2026-08-01,2026-11-10,40,true,PINE-100,PINE-300
 PINE,PINE-201,Install HVAC mains,Story,To Do,HVAC Crew,PINE R2 MEP Buildout,PINE-200,,2026-08-01,2026-08-28,8,true,PINE-104,
 PINE,PINE-202,Install electrical distribution,Story,To Do,Electrical Crew,PINE R2 MEP Buildout,PINE-200,,2026-08-20,2026-09-25,13,true,PINE-104,
 PINE,PINE-203,Install plumbing mains,Story,To Do,Plumbing Crew,PINE R2 MEP Buildout,PINE-200,,2026-09-10,2026-10-15,8,true,PINE-104,
-PINE,PINE-204,MEP inspection package,Story,To Do,MEP Manager,PINE R2 MEP Buildout,PINE-200,,2026-10-16,2026-11-10,5,true,"PINE-201; PINE-202; PINE-203",
+PINE,PINE-204,MEP inspection package,Story,To Do,MEP Manager,PINE R2 MEP Buildout,PINE-200,,2026-10-16,2026-11-10,5,true,"PINE-201; PINE-202; PINE-203",PINE-300
+PINE,PINE-205,Integrate building controls,Task,To Do,Controls Vendor,PINE R2 MEP Buildout,PINE-200,,2026-09-20,2026-10-28,6,true,"PINE-201; PINE-202",
+PINE,PINE-300,Pine Ridge interior buildout,Epic,To Do,Interior Superintendent,PINE R3 Interiors,,PINE-300,2026-09-15,2026-12-20,25,true,PINE-200,PINE-400
+PINE,PINE-301,Frame interior partitions,Story,To Do,Carpentry Crew,PINE R3 Interiors,PINE-300,,2026-09-15,2026-10-05,3,true,PINE-204,
+PINE,PINE-302,Hang drywall in public areas,Story,To Do,Drywall Crew,PINE R3 Interiors,PINE-300,,2026-10-06,2026-10-24,3,true,PINE-301,
+PINE,PINE-303,Install ceiling grid,Task,To Do,Interior Crew,PINE R3 Interiors,PINE-300,,2026-10-18,2026-11-05,2,true,PINE-302,
+PINE,PINE-304,Install millwork package,Story,To Do,Millwork Vendor,PINE R3 Interiors,PINE-300,,2026-11-06,2026-11-26,5,true,PINE-302,
+PINE,PINE-305,Install flooring,Story,To Do,Flooring Crew,PINE R3 Interiors,PINE-300,,2026-11-18,2026-12-05,3,true,PINE-304,
+PINE,PINE-306,Paint and final finishes,Story,To Do,Finish Crew,PINE R3 Interiors,PINE-300,,2026-12-01,2026-12-15,3,true,"PINE-304; PINE-305",
+PINE,PINE-307,Interior punch walk,Task,To Do,Project Executive,PINE R3 Interiors,PINE-300,,2026-12-16,2026-12-20,3,true,PINE-306,PINE-500
+PINE,PINE-400,Pine Ridge site amenities,Epic,To Do,Landscape Lead,PINE R4 Site Amenities,,PINE-400,2026-09-01,2026-11-30,16,true,PINE-100,PINE-500
+PINE,PINE-401,Pour exterior sidewalks,Story,To Do,Concrete Crew,PINE R4 Site Amenities,PINE-400,,2026-09-01,2026-09-20,3,true,PINE-104,
+PINE,PINE-402,Install parking lot lighting,Task,To Do,Electrical Crew,PINE R4 Site Amenities,PINE-400,,2026-09-12,2026-10-04,2,true,PINE-202,
+PINE,PINE-403,Grade playground area,Story,To Do,Excavation Crew,PINE R4 Site Amenities,PINE-400,,2026-10-05,2026-10-20,3,true,PINE-401,
+PINE,PINE-404,Install playground equipment,Story,To Do,Playground Vendor,PINE R4 Site Amenities,PINE-400,,2026-10-21,2026-11-10,3,true,PINE-403,
+PINE,PINE-405,Plant landscaping package,Task,To Do,Landscape Crew,PINE R4 Site Amenities,PINE-400,,2026-11-01,2026-11-22,2,true,PINE-403,
+PINE,PINE-406,Site amenities inspection,Story,To Do,Inspector,PINE R4 Site Amenities,PINE-400,,2026-11-23,2026-11-30,3,true,"PINE-404; PINE-405",PINE-500
+PINE,PINE-500,Pine Ridge commissioning and opening,Epic,To Do,Operations Lead,PINE R5 Opening,,PINE-500,2026-11-15,2027-01-20,22,true,"PINE-300; PINE-400",
+PINE,PINE-501,Commission HVAC systems,Story,To Do,HVAC Crew,PINE R5 Opening,PINE-500,,2026-11-15,2026-12-10,5,true,PINE-205,
+PINE,PINE-502,Life safety inspection,Story,To Do,Fire Marshal,PINE R5 Opening,PINE-500,,2026-12-11,2026-12-22,5,true,"PINE-501; PINE-307",
+PINE,PINE-503,Train facility staff,Task,To Do,Operations Lead,PINE R5 Opening,PINE-500,,2026-12-23,2027-01-05,3,true,PINE-502,
+PINE,PINE-504,Public opening readiness,Story,To Do,Project Executive,PINE R5 Opening,PINE-500,,2027-01-06,2027-01-20,5,true,"PINE-503; PINE-406",

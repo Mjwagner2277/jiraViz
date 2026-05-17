@@ -105,9 +105,9 @@ Example output:
 
 ```text
 Projects:
-- MAP (14 issues)
-- OAK (14 issues)
-- PINE (10 issues)
+- MAP (22 issues)
+- OAK (22 issues)
+- PINE (31 issues)
 ```
 
 This means the CSV has three project choices: `MAP`, `OAK`, and `PINE`.
