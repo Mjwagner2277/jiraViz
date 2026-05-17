@@ -51,14 +51,6 @@ The security tarball contains `SHA256SUMS` plus the Trivy table, JSON, SARIF, Cy
 
 The workflow fails on `CRITICAL,HIGH` Trivy findings after writing the security artifacts.
 
-## Semantic Version Tags
+## Contributing
 
-The `Semantic Version Tag` workflow creates annotated `vMAJOR.MINOR.PATCH` tags from pushes to `main`.
-
-Automatic bump rules:
-
-- Major: commit message contains `BREAKING CHANGE:` or a Conventional Commit bang, such as `feat!:`
-- Minor: commit message starts with `feat:` or `feat(scope):`
-- Patch: all other commits
-
-The workflow can also be run manually from GitHub Actions with a forced `patch`, `minor`, or `major` bump.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for commit message and semantic versioning rules.
