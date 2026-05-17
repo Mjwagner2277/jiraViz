@@ -106,6 +106,7 @@ func main() {
 	project := flag.String("project", "", "project key or name to visualize")
 	listProjects := flag.Bool("list-projects", false, "list projects discovered in the CSV and exit")
 	mode := flag.String("mode", "auto", "largest epic ranking mode: auto, points, or issues")
+	view := flag.String("view", "portfolio", "visualization view: portfolio or epics-six-month")
 	asOf := flag.String("as-of", "", "report date in YYYY-MM-DD format; defaults to today")
 	sample := flag.Bool("sample", false, "write a sample CSV to the input path before rendering")
 	showVersion := flag.Bool("version", false, "print version and build metadata")
@@ -117,7 +118,7 @@ func main() {
 	}
 
 	if *input == "" {
-		fmt.Fprintf(os.Stderr, "usage: jiraviz -input issues.csv [-project PROJECT] [-out report.svg] [-list-projects] [-sample]\n")
+		fmt.Fprintf(os.Stderr, "usage: jiraviz -input issues.csv [-project PROJECT] [-view portfolio|epics-six-month] [-out report.svg] [-list-projects] [-sample]\n")
 		os.Exit(2)
 	}
 
@@ -167,7 +168,7 @@ func main() {
 	}
 
 	report := buildReport(issues, now)
-	data, err := renderSVG(report, *mode, now)
+	data, err := renderViewSVG(report, *view, *mode, now)
 	if err != nil {
 		fatal(err)
 	}
@@ -730,6 +731,34 @@ func maxInt(a, b int) int {
 	return b
 }
 
+type EpicsGanttReport struct {
+	ProjectName string
+	WindowLabel string
+	Width       int
+	Height      int
+	ChartLeft   int
+	ChartRight  int
+	MonthTicks  []SVGTick
+	TodayX      int
+	Epics       []SVGGanttEpic
+	LegendY     int
+}
+
+type SVGGanttEpic struct {
+	Key        string
+	Name       string
+	DateRange  string
+	Percent    int
+	Color      string
+	X          int
+	Width      int
+	FillWidth  int
+	PercentX   int
+	Y          int
+	NotStarted bool
+	Continues  bool
+}
+
 type SVGReport struct {
 	ProjectName  string
 	GeneratedAt  string
@@ -785,9 +814,36 @@ type SVGEpic struct {
 	ContinuesPast bool
 }
 
+func renderViewSVG(report Report, view, mode string, now time.Time) ([]byte, error) {
+	switch strings.ToLower(strings.TrimSpace(view)) {
+	case "", "portfolio":
+		return renderSVG(report, mode, now)
+	case "epics-six-month", "epics", "gantt":
+		return renderEpicsGanttSVG(report, now)
+	default:
+		return nil, fmt.Errorf("unknown -view %q; use portfolio or epics-six-month", view)
+	}
+}
+
 func renderSVG(report Report, mode string, now time.Time) ([]byte, error) {
 	view := buildSVGReport(report, mode, now)
 	tmpl, err := template.New("svg").Parse(svgTemplate)
+	if err != nil {
+		return nil, err
+	}
+	var buf bytes.Buffer
+	if err := tmpl.Execute(&buf, view); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
+func renderEpicsGanttSVG(report Report, now time.Time) ([]byte, error) {
+	view := buildEpicsGanttReport(report, now)
+	tmpl, err := template.New("epicsGantt").Funcs(template.FuncMap{
+		"add":   func(a, b int) int { return a + b },
+		"minus": func(a, b int) int { return a - b },
+	}).Parse(epicsGanttTemplate)
 	if err != nil {
 		return nil, err
 	}
@@ -854,6 +910,67 @@ func buildSVGReport(report Report, mode string, now time.Time) SVGReport {
 		TodayX:       dateX(windowStart, windowStart, windowEnd, left, width),
 		Releases:     releases,
 		TopEpics:     topEpics,
+	}
+}
+
+func buildEpicsGanttReport(report Report, now time.Time) EpicsGanttReport {
+	windowStart := dateOnly(now)
+	windowEnd := windowStart.AddDate(0, 6, 0)
+	left := 420
+	right := 1120
+	width := right - left
+	colors := []string{"#2F6FED", "#188A7D", "#B57600", "#64748B", "#8A5FBF", "#C76B2C", "#3D6B83", "#7A6A2B"}
+
+	epics := append([]EpicMetric(nil), report.Epics...)
+	sort.Slice(epics, func(i, j int) bool {
+		if epics[i].Start.Equal(epics[j].Start) {
+			return epics[i].Key < epics[j].Key
+		}
+		return epics[i].Start.Before(epics[j].Start)
+	})
+
+	rows := make([]SVGGanttEpic, 0, len(epics))
+	for i, epic := range epics {
+		start := epic.Start
+		due := epic.Due
+		if start.IsZero() {
+			start = windowStart
+		}
+		if due.IsZero() || due.Before(start) {
+			due = start.AddDate(0, 0, max(7, epic.IssueCount*3))
+		}
+		x1 := dateX(start, windowStart, windowEnd, left, width)
+		x2 := dateX(due, windowStart, windowEnd, left, width)
+		barWidth := maxInt(34, x2-x1)
+		rows = append(rows, SVGGanttEpic{
+			Key:        epic.Key,
+			Name:       truncateText(epic.Summary, 34),
+			DateRange:  dateRange(start, due),
+			Percent:    epic.Percent,
+			Color:      colors[i%len(colors)],
+			X:          x1,
+			Width:      barWidth,
+			FillWidth:  maxInt(2, int(math.Round(float64(barWidth)*float64(epic.Percent)/100))),
+			PercentX:   x1 + barWidth + 22,
+			Y:          520 + i*72,
+			NotStarted: epic.Percent == 0,
+			Continues:  start.Before(windowStart) || due.After(windowEnd),
+		})
+	}
+
+	height := maxInt(1400, 640+len(rows)*72)
+	legendY := height - 120
+	return EpicsGanttReport{
+		ProjectName: report.ProjectName,
+		WindowLabel: fmt.Sprintf("%s - %s", windowStart.Format("Jan 2"), windowEnd.Format("Jan 2, 2006")),
+		Width:       1400,
+		Height:      height,
+		ChartLeft:   left,
+		ChartRight:  right,
+		MonthTicks:  monthTicks(windowStart, windowEnd, left, width),
+		TodayX:      dateX(windowStart, windowStart, windowEnd, left, width),
+		Epics:       rows,
+		LegendY:     legendY,
 	}
 }
 
@@ -1052,6 +1169,82 @@ const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="{{.Width}}" 
     <circle class="dot" cx="{{.X}}" cy="{{.Y}}" r="5" transform="translate({{.Width}} 8)" stroke="{{.Color}}"/>
     <text class="ink label" x="{{.PercentX}}" y="{{.Y}}" dy="13">{{.Percent}}%</text>
   {{end}}
+</svg>
+`
+
+const epicsGanttTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="{{.Width}}" height="{{.Height}}" viewBox="0 0 {{.Width}} {{.Height}}" role="img" aria-labelledby="title desc">
+  <title id="title">All Epics Spanning Next 6 Months</title>
+  <desc id="desc">Gantt style view of epics that start, end, overlap, or are contained in the six-month reporting window.</desc>
+  <defs>
+    <style>
+      .page { fill: #f6f7f9; }
+      .panel { fill: #ffffff; stroke: #cfd6e3; stroke-width: 1; }
+      .soft { fill: #f8fafc; stroke: #d7dee9; stroke-width: 1; }
+      .ink { fill: #202936; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .muted { fill: #5f6b7d; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .title { font-size: 44px; font-weight: 800; letter-spacing: 0; }
+      .section { font-size: 28px; font-weight: 800; }
+      .label { font-size: 21px; font-weight: 800; }
+      .meta { font-size: 18px; font-weight: 600; }
+      .small { font-size: 16px; font-weight: 600; }
+      .axis { stroke: #cfd8e6; stroke-width: 1; }
+      .grid { stroke: #d8e0ec; stroke-width: 1; stroke-dasharray: 6 10; }
+      .today { stroke: #1f2937; stroke-width: 2; stroke-dasharray: 4 7; }
+      .remainder { fill: #e9eef5; stroke: #c7d1df; stroke-width: 1; }
+      .notStarted { fill: #ffffff; stroke-width: 2; stroke-dasharray: 8 7; }
+      .continues { fill: #dfe6ef; stroke: #c7d1df; stroke-width: 1; }
+      .legendText { font-size: 16px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect class="page" x="0" y="0" width="{{.Width}}" height="{{.Height}}"/>
+  <rect class="panel" x="54" y="44" width="1292" height="{{minus .Height 88}}" rx="8"/>
+
+  <text class="ink section" x="94" y="104">All Epics Spanning Next 6 Months</text>
+  <text class="muted label" x="94" y="144">Epics that start, end, overlap, or are contained in the reporting window.</text>
+  <text class="ink title" x="94" y="230">{{.ProjectName}} Plan</text>
+  <text class="muted meta" x="1306" y="214" text-anchor="end">Window: {{.WindowLabel}}</text>
+  <line class="axis" x1="94" y1="262" x2="1306" y2="262"/>
+
+  <rect class="panel" x="94" y="328" width="1212" height="{{minus .LegendY 370}}" rx="7"/>
+  <text class="ink section" x="130" y="383">Epic Schedule</text>
+  <text class="muted meta" x="130" y="418">Filled portion indicates percent complete. Dashed bars indicate not started.</text>
+
+  {{range .MonthTicks}}
+    <line class="grid" x1="{{.X}}" y1="466" x2="{{.X}}" y2="{{$.LegendY}}"/>
+    <text class="muted small" x="{{.X}}" y="454" text-anchor="middle">{{.Label}}</text>
+  {{end}}
+  <line class="today" x1="{{.TodayX}}" y1="466" x2="{{.TodayX}}" y2="{{.LegendY}}"/>
+  <text class="muted small" x="{{.TodayX}}" y="{{add .LegendY 34}}" text-anchor="middle">as of</text>
+
+  {{range .Epics}}
+    <text class="ink label" x="130" y="{{.Y}}">{{.Name}}</text>
+    <text class="muted meta" x="130" y="{{.Y}}" dy="28">{{.DateRange}}</text>
+    {{if .Continues}}
+      <rect class="continues" x="{{.X}}" y="{{.Y}}" width="{{.Width}}" height="34" rx="7"/>
+    {{else}}
+      <rect class="remainder" x="{{.X}}" y="{{.Y}}" width="{{.Width}}" height="34" rx="7"/>
+    {{end}}
+    {{if .NotStarted}}
+      <rect class="notStarted" x="{{.X}}" y="{{.Y}}" width="{{.Width}}" height="34" rx="7" stroke="{{.Color}}"/>
+      <text class="muted label" x="{{.PercentX}}" y="{{.Y}}" dy="25">Not started</text>
+    {{else}}
+      <rect x="{{.X}}" y="{{.Y}}" width="{{.FillWidth}}" height="34" rx="7" fill="{{.Color}}"/>
+      <text class="ink label" x="{{.PercentX}}" y="{{.Y}}" dy="25">{{.Percent}}%</text>
+    {{end}}
+  {{end}}
+
+  <rect class="soft" x="94" y="{{.LegendY}}" width="1212" height="76" rx="7"/>
+  <rect class="remainder" x="122" y="{{add .LegendY 19}}" width="44" height="18" rx="3"/>
+  <text class="muted legendText" x="182" y="{{add .LegendY 34}}">Epic date range in window</text>
+  <rect x="424" y="{{add .LegendY 18}}" width="44" height="19" rx="4" fill="#2F6FED"/>
+  <text class="muted legendText" x="482" y="{{add .LegendY 34}}">Completion fill</text>
+  <rect class="notStarted" x="664" y="{{add .LegendY 17}}" width="70" height="20" rx="4" stroke="#8A98AB"/>
+  <text class="muted legendText" x="750" y="{{add .LegendY 34}}">Not started</text>
+  <rect class="continues" x="906" y="{{add .LegendY 18}}" width="44" height="19" rx="4"/>
+  <text class="muted legendText" x="966" y="{{add .LegendY 34}}">Continues</text>
+  <line class="today" x1="122" y1="{{add .LegendY 56}}" x2="166" y2="{{add .LegendY 56}}"/>
+  <text class="muted legendText" x="182" y="{{add .LegendY 62}}">Today</text>
 </svg>
 `
 
