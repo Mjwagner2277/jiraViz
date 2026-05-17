@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1084" viewBox="0 0 1200 1084" role="img" aria-labelledby="title desc">
-  <title id="title">REN Program Portfolio Report</title>
-  <desc id="desc">Jira CSV visualization with release timeline, largest epics over the next six months, and all epic gantt rows.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+  <title id="title">PINE Program Portfolio Report</title>
+  <desc id="desc">Jira CSV visualization with release timeline and important epics over the next six months.</desc>
   <defs>
     <style>
       .page { fill: #f6f7f9; }
@@ -9,6 +9,8 @@
       .muted { fill: #667085; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
       .small { font-size: 12px; }
       .label { font-size: 14px; font-weight: 700; }
+      .epicTitle { font-size: 13px; font-weight: 700; }
+      .epicMeta { font-size: 11px; }
       .title { font-size: 30px; font-weight: 800; letter-spacing: 0; }
       .section { font-size: 19px; font-weight: 800; }
       .axis { stroke: #d7dde7; stroke-width: 1; }
@@ -22,9 +24,9 @@
     </style>
   </defs>
 
-  <rect class="page" x="0" y="0" width="1200" height="1084"/>
+  <rect class="page" x="0" y="0" width="1200" height="820"/>
 
-  <text class="ink title" x="56" y="58">REN Program Portfolio Report</text>
+  <text class="ink title" x="56" y="58">PINE Program Portfolio Report</text>
   <text class="muted" x="56" y="86" font-size="14">Generated May 16, 2026 12:00 AM · Six-month window: May 16, 2026 to Nov 16, 2026</text>
 
   <rect class="panel" x="40" y="118" width="1120" height="390" rx="8"/>
@@ -54,135 +56,45 @@
   <text class="muted small" x="250" y="498" text-anchor="middle">as of</text>
 
 
-    <text class="ink label" x="64" y="218">R1 Planning &amp; Permits</text>
-    <text class="muted small" x="64" y="218" dy="20">May 6 - Jul 15 · 3/4 done</text>
-    <rect class="remainder" x="250" y="218" width="284" height="18" rx="9"/>
-    <rect class="releaseBar" x="250" y="218" width="213" height="18" rx="9" fill="#2F6FED"/>
-    <circle class="dot" cx="534" cy="218" r="7" dy="9" transform="translate(0 9)" stroke="#2F6FED"/>
-    <text class="ink label" x="534" dx="16" y="218" dy="14">75%</text>
+    <text class="ink label" x="64" y="218">PINE R1 Shell</text>
+    <text class="muted small" x="64" y="218" dy="20">May 1 - Aug 15 · 1/4 done</text>
+    <rect class="remainder" x="250" y="218" width="430" height="18" rx="9"/>
+    <rect class="releaseBar" x="250" y="218" width="108" height="18" rx="9" fill="#2F6FED"/>
+    <circle class="dot" cx="680" cy="218" r="7" dy="9" transform="translate(0 9)" stroke="#2F6FED"/>
+    <text class="ink label" x="680" dx="16" y="218" dy="14">25%</text>
 
-    <text class="ink label" x="64" y="280">R2 Demo &amp; Rough-In</text>
-    <text class="muted small" x="64" y="280" dy="20">Jun 3 - Aug 16 · 2/4 done</text>
-    <rect class="remainder" x="335" y="280" width="350" height="18" rx="9"/>
-    <rect class="releaseBar" x="335" y="280" width="175" height="18" rx="9" fill="#188A7D"/>
-    <circle class="dot" cx="685" cy="280" r="7" dy="9" transform="translate(0 9)" stroke="#188A7D"/>
-    <text class="ink label" x="685" dx="16" y="280" dy="14">50%</text>
-
-    <text class="ink label" x="64" y="342">R3 Finishes</text>
-    <text class="muted small" x="64" y="342" dy="20">Jul 10 - Sep 28 · 1/4 done</text>
-    <rect class="remainder" x="510" y="342" width="378" height="18" rx="9"/>
-    <rect class="releaseBar" x="510" y="342" width="95" height="18" rx="9" fill="#8A5FBF"/>
-    <circle class="dot" cx="888" cy="342" r="7" dy="9" transform="translate(0 9)" stroke="#8A5FBF"/>
-    <text class="ink label" x="888" dx="16" y="342" dy="14">25%</text>
-
-    <text class="ink label" x="64" y="404">R4 Inspection &amp; Move-In</text>
-    <text class="muted small" x="64" y="404" dy="20">Aug 12 - Oct 18 · 1/4 done</text>
-    <rect class="remainder" x="666" y="404" width="317" height="18" rx="9"/>
-    <rect class="releaseBar" x="666" y="404" width="79" height="18" rx="9" fill="#C76B2C"/>
-    <circle class="dot" cx="983" cy="404" r="7" dy="9" transform="translate(0 9)" stroke="#C76B2C"/>
-    <text class="ink label" x="983" dx="16" y="404" dy="14">25%</text>
+    <text class="ink label" x="64" y="280">PINE R2 MEP Buildout</text>
+    <text class="muted small" x="64" y="280" dy="20">Aug 1 - Nov 10 · 0/4 done</text>
+    <rect class="remainder" x="614" y="280" width="478" height="18" rx="9"/>
+    <rect class="releaseBar" x="614" y="280" width="2" height="18" rx="9" fill="#188A7D"/>
+    <circle class="dot" cx="1092" cy="280" r="7" dy="9" transform="translate(0 9)" stroke="#188A7D"/>
+    <text class="ink label" x="1092" dx="16" y="280" dy="14">0%</text>
 
 
   <rect class="panel" x="40" y="532" width="1120" height="250" rx="8"/>
-  <text class="ink section" x="64" y="568">Largest Epics Next 6 Months</text>
+  <text class="ink section" x="64" y="568">Important Epics</text>
   <text class="muted small" x="64" y="590">Ranked by planned issue count. Only epics that intersect the six-month window are eligible.</text>
 
     <rect class="soft" x="60" y="616" width="1080" height="54" rx="7"/>
-    <text class="ink label" x="82" y="616" dy="22">#1 REN-100 · Planning and permits</text>
-    <text class="muted small" x="82" y="616" dy="40">4 planned issues · May 6 - Jul 15</text>
-    <rect class="remainder" x="650" y="616" width="127" height="16" rx="8"/>
+    <text class="ink epicTitle" x="82" y="616" dy="22">#1 PINE-100 · Pine Ridge community center shell</text>
+    <text class="muted epicMeta" x="82" y="616" dy="40">4 planned issues · May 1 - Aug 15</text>
+    <rect class="remainder" x="650" y="616" width="183" height="16" rx="8"/>
 
-      <rect class="completion" x="650" y="616" width="95" height="16" rx="8" fill="#2F6FED"/>
+      <rect class="completion" x="650" y="616" width="46" height="16" rx="8" fill="#2F6FED"/>
 
     <circle class="dot" cx="650" cy="616" r="5" transform="translate(0 8)" stroke="#2F6FED"/>
-    <circle class="dot" cx="650" cy="616" r="5" transform="translate(127 8)" stroke="#2F6FED"/>
-    <text class="ink label" x="650" dx="127" y="616" dy="13">75%</text>
+    <circle class="dot" cx="650" cy="616" r="5" transform="translate(183 8)" stroke="#2F6FED"/>
+    <text class="ink label" x="855" y="616" dy="13">25%</text>
 
     <rect class="soft" x="60" y="668" width="1080" height="54" rx="7"/>
-    <text class="ink label" x="82" y="668" dy="22">#2 REN-200 · Demo and rough-in</text>
-    <text class="muted small" x="82" y="668" dy="40">4 planned issues · Jun 3 - Aug 16</text>
-    <rect class="remainder" x="688" y="668" width="157" height="16" rx="8"/>
+    <text class="ink epicTitle" x="82" y="668" dy="22">#2 PINE-200 · Pine Ridge MEP buildout</text>
+    <text class="muted epicMeta" x="82" y="668" dy="40">4 planned issues · Aug 1 - Nov 10</text>
+    <rect class="remainder" x="805" y="668" width="203" height="16" rx="8"/>
 
-      <rect class="completion" x="688" y="668" width="79" height="16" rx="8" fill="#188A7D"/>
+      <rect class="notStarted" x="805" y="668" width="203" height="16" rx="8" stroke="#188A7D"/>
 
-    <circle class="dot" cx="688" cy="668" r="5" transform="translate(0 8)" stroke="#188A7D"/>
-    <circle class="dot" cx="688" cy="668" r="5" transform="translate(157 8)" stroke="#188A7D"/>
-    <text class="ink label" x="688" dx="157" y="668" dy="13">50%</text>
-
-    <rect class="soft" x="60" y="720" width="1080" height="54" rx="7"/>
-    <text class="ink label" x="82" y="720" dy="22">#3 REN-300 · Finishes and fixtures</text>
-    <text class="muted small" x="82" y="720" dy="40">4 planned issues · Jul 10 - Sep 28</text>
-    <rect class="remainder" x="767" y="720" width="169" height="16" rx="8"/>
-
-      <rect class="completion" x="767" y="720" width="42" height="16" rx="8" fill="#8A5FBF"/>
-
-    <circle class="dot" cx="767" cy="720" r="5" transform="translate(0 8)" stroke="#8A5FBF"/>
-    <circle class="dot" cx="767" cy="720" r="5" transform="translate(169 8)" stroke="#8A5FBF"/>
-    <text class="ink label" x="767" dx="169" y="720" dy="13">25%</text>
-
-
-  <rect class="panel" x="40" y="812" width="1120" height="244" rx="8"/>
-  <text class="ink section" x="64" y="848">All Epics Spanning Next 6 Months</text>
-  <text class="muted small" x="64" y="870">Started epics show percent complete. Not-started epics use a dashed outline.</text>
-  <line class="axis" x1="250" y1="892" x2="1120" y2="892"/>
-
-    <line class="grid" x1="326" y1="892" x2="326" y2="10000"/>
-    <text class="muted small" x="326" y="882" text-anchor="middle">Jun</text>
-
-    <line class="grid" x1="468" y1="892" x2="468" y2="10000"/>
-    <text class="muted small" x="468" y="882" text-anchor="middle">Jul</text>
-
-    <line class="grid" x1="614" y1="892" x2="614" y2="10000"/>
-    <text class="muted small" x="614" y="882" text-anchor="middle">Aug</text>
-
-    <line class="grid" x1="761" y1="892" x2="761" y2="10000"/>
-    <text class="muted small" x="761" y="882" text-anchor="middle">Sep</text>
-
-    <line class="grid" x1="903" y1="892" x2="903" y2="10000"/>
-    <text class="muted small" x="903" y="882" text-anchor="middle">Oct</text>
-
-    <line class="grid" x1="1049" y1="892" x2="1049" y2="10000"/>
-    <text class="muted small" x="1049" y="882" text-anchor="middle">Nov</text>
-
-
-    <text class="ink label" x="64" y="865" dy="13">REN-100</text>
-    <text class="muted small" x="126" y="865" dy="13">Planning and permits</text>
-    <rect class="remainder" x="250" y="865" width="284" height="18" rx="5"/>
-
-      <rect class="completion" x="250" y="865" width="213" height="18" rx="5" fill="#2F6FED"/>
-
-    <text class="muted small" x="250" dx="-6" y="865" dy="14" text-anchor="end">continues</text>
-
-    <text class="ink label" x="250" dx="284" y="865" dy="14">75%</text>
-
-    <text class="ink label" x="64" y="913" dy="13">REN-200</text>
-    <text class="muted small" x="126" y="913" dy="13">Demo and rough-in</text>
-    <rect class="remainder" x="335" y="913" width="350" height="18" rx="5"/>
-
-      <rect class="completion" x="335" y="913" width="175" height="18" rx="5" fill="#188A7D"/>
-
-
-
-    <text class="ink label" x="335" dx="350" y="913" dy="14">50%</text>
-
-    <text class="ink label" x="64" y="961" dy="13">REN-300</text>
-    <text class="muted small" x="126" y="961" dy="13">Finishes and fixtures</text>
-    <rect class="remainder" x="510" y="961" width="378" height="18" rx="5"/>
-
-      <rect class="completion" x="510" y="961" width="95" height="18" rx="5" fill="#8A5FBF"/>
-
-
-
-    <text class="ink label" x="510" dx="378" y="961" dy="14">25%</text>
-
-    <text class="ink label" x="64" y="1009" dy="13">REN-400</text>
-    <text class="muted small" x="126" y="1009" dy="13">Inspection and move-in</text>
-    <rect class="remainder" x="666" y="1009" width="317" height="18" rx="5"/>
-
-      <rect class="completion" x="666" y="1009" width="79" height="18" rx="5" fill="#C76B2C"/>
-
-
-
-    <text class="ink label" x="666" dx="317" y="1009" dy="14">25%</text>
+    <circle class="dot" cx="805" cy="668" r="5" transform="translate(0 8)" stroke="#188A7D"/>
+    <circle class="dot" cx="805" cy="668" r="5" transform="translate(203 8)" stroke="#188A7D"/>
+    <text class="ink label" x="1030" y="668" dy="13">0%</text>
 
 </svg>

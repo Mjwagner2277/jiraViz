@@ -778,6 +778,7 @@ type SVGEpic struct {
 	X             int
 	Width         int
 	FillWidth     int
+	PercentX      int
 	Y             int
 	NotStarted    bool
 	ContinuesFrom bool
@@ -836,7 +837,7 @@ func buildSVGReport(report Report, mode string, now time.Time) SVGReport {
 	ranking, rankingLabel := rankedEpics(report.Epics, mode)
 	topEpics := make([]SVGEpic, 0, len(ranking))
 	for i, epic := range ranking {
-		topEpics = append(topEpics, svgEpic(epic, i+1, 616+i*52, colors[i%len(colors)], windowStart, windowEnd, 650, 390, rankingLabel))
+		topEpics = append(topEpics, svgEpic(epic, i+1, 616+i*52, colors[i%len(colors)], windowStart, windowEnd, 650, 370, rankingLabel))
 	}
 
 	return SVGReport{
@@ -908,7 +909,7 @@ func svgEpic(epic EpicMetric, rank, y int, color string, windowStart, windowEnd 
 	return SVGEpic{
 		Rank:          rank,
 		Key:           epic.Key,
-		Name:          epic.Summary,
+		Name:          truncateText(epic.Summary, 48),
 		DateRange:     dateRange(start, due),
 		Percent:       epic.Percent,
 		IssueCount:    epic.IssueCount,
@@ -918,11 +919,20 @@ func svgEpic(epic EpicMetric, rank, y int, color string, windowStart, windowEnd 
 		X:             x1,
 		Width:         barWidth,
 		FillWidth:     maxInt(2, int(math.Round(float64(barWidth)*float64(epic.Percent)/100))),
+		PercentX:      x1 + barWidth + 22,
 		Y:             y,
 		NotStarted:    epic.Percent == 0,
 		ContinuesFrom: start.Before(windowStart),
 		ContinuesPast: due.After(windowEnd),
 	}
+}
+
+func truncateText(s string, maxLen int) string {
+	s = strings.TrimSpace(s)
+	if maxLen <= 3 || len(s) <= maxLen {
+		return s
+	}
+	return strings.TrimSpace(s[:maxLen-3]) + "..."
 }
 
 func dateOnly(t time.Time) time.Time {
@@ -985,6 +995,8 @@ const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="{{.Width}}" 
       .muted { fill: #667085; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
       .small { font-size: 12px; }
       .label { font-size: 14px; font-weight: 700; }
+      .epicTitle { font-size: 13px; font-weight: 700; }
+      .epicMeta { font-size: 11px; }
       .title { font-size: 30px; font-weight: 800; letter-spacing: 0; }
       .section { font-size: 19px; font-weight: 800; }
       .axis { stroke: #d7dde7; stroke-width: 1; }
@@ -1028,8 +1040,8 @@ const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="{{.Width}}" 
   <text class="muted small" x="64" y="590">{{.RankingLabel}}. Only epics that intersect the six-month window are eligible.</text>
   {{range .TopEpics}}
     <rect class="soft" x="60" y="{{.Y}}" width="1080" height="54" rx="7"/>
-    <text class="ink label" x="82" y="{{.Y}}" dy="22">#{{.Rank}} {{.Key}} · {{.Name}}</text>
-    <text class="muted small" x="82" y="{{.Y}}" dy="40">{{.MetricLabel}} · {{.DateRange}}</text>
+    <text class="ink epicTitle" x="82" y="{{.Y}}" dy="22">#{{.Rank}} {{.Key}} · {{.Name}}</text>
+    <text class="muted epicMeta" x="82" y="{{.Y}}" dy="40">{{.MetricLabel}} · {{.DateRange}}</text>
     <rect class="remainder" x="{{.X}}" y="{{.Y}}" width="{{.Width}}" height="16" rx="8"/>
     {{if .NotStarted}}
       <rect class="notStarted" x="{{.X}}" y="{{.Y}}" width="{{.Width}}" height="16" rx="8" stroke="{{.Color}}"/>
@@ -1038,7 +1050,7 @@ const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="{{.Width}}" 
     {{end}}
     <circle class="dot" cx="{{.X}}" cy="{{.Y}}" r="5" transform="translate(0 8)" stroke="{{.Color}}"/>
     <circle class="dot" cx="{{.X}}" cy="{{.Y}}" r="5" transform="translate({{.Width}} 8)" stroke="{{.Color}}"/>
-    <text class="ink label" x="{{.X}}" dx="{{.Width}}" y="{{.Y}}" dy="13">{{.Percent}}%</text>
+    <text class="ink label" x="{{.PercentX}}" y="{{.Y}}" dy="13">{{.Percent}}%</text>
   {{end}}
 </svg>
 `
